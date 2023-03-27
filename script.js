@@ -1,5 +1,14 @@
-// Set the date to countdown to (YYYY-MM-DD format)
-const countdownDate = new Date("2023-04-10");
+// Get the countdown date from local storage, if available
+let countdownDate = localStorage.getItem("countdownDate");
+if (countdownDate) {
+  countdownDate = new Date(countdownDate);
+} else {
+  countdownDate = new Date();
+}
+
+// Get the countdown date input and set its value to the current countdown date
+const countdownDateInput = document.getElementById("countdown-date-input");
+countdownDateInput.valueAsDate = countdownDate;
 
 // Get the countdown timer element from the HTML
 const countdownTimer = document.getElementById("countdown-timer");
@@ -34,8 +43,31 @@ function updateCountdown() {
 // Function to reset the countdown timer
 function resetCountdown() {
   clearInterval(timer);
-  countdownTimer.innerText = "0 days";
+  countdownTimer.innerText = "";
+  countdownDateInput.valueAsDate = new Date();
+  localStorage.removeItem("countdownDate");
 }
+
+// Add a change event listener to the countdown date input
+countdownDateInput.addEventListener("change", function() {
+  // Get the date value from the input
+  const dateValue = countdownDateInput.value;
+  if (!dateValue) {
+    return;
+  }
+
+  // Set the countdown date to the selected date
+  countdownDate = new Date(dateValue);
+
+  // Save the countdown date to local storage
+  localStorage.setItem("countdownDate", countdownDate.toISOString());
+
+  // Update the countdown timer
+  updateCountdown();
+});
 
 // Add a click event listener to the reset button
 resetButton.addEventListener("click", resetCountdown);
+
+// Initialize the countdown timer
+updateCountdown();
