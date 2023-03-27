@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Countdown Timer</title>
-  <script src="https://neelng7.github.io/timer/script.js" defer></script>
+  <title>Countdown Timer Example</title>
+  </script src="https://neelng7.github.io/timer/script.js" defer>
 </head>
 <body>
   <h1>Countdown Timer</h1>
-  <p>Counting down to April 10, 2023</p>
-  <div id="countdown-timer">0 days</div>
+  <p>Enter a date to countdown to:</p>
+  <input type="date" id="countdown-date-input">
+  <br>
+  <div id="countdown-timer"></div>
   <button id="reset-button">Reset</button>
+  <script src="countdown.js"></script>
 </body>
 </html>
